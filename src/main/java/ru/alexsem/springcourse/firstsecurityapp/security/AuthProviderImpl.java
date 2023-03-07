@@ -11,6 +11,10 @@ import org.springframework.stereotype.Component;
 import ru.alexsem.springcourse.firstsecurityapp.services.PersonDetailsService;
 
 import java.util.Collections;
+
+/**
+ * Класс реализует логику аутентификации
+ */
 @Component
 public class AuthProviderImpl implements AuthenticationProvider {
     
