@@ -65,13 +65,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and() //разделитель между блоками
                 .formLogin()
                 .loginPage("/auth/login") //хотим свою страницу аутентификации
-                .loginProcessingUrl("/process_login") //куда отправлять данные из формы аутентификации
+                .loginProcessingUrl("/process_login") //куда отправлять данные из формы аутентификации. Реализовывать не надо. Spring сам сделает.
                 .defaultSuccessUrl("/hello", true) // после успешной аутентиф. перенаправить на страницу
-                .failureUrl("/auth/login?error"); //после неуспешной аутентиф. перенаправить обратно с ключом
-//                .and() // добавляем процесс разлогининивания
-//                .logout()
-//                .logoutUrl("/logout")
-//                .logoutSuccessUrl("/auth/login"); // ссылка на разлогинивание, автопереход после него
+                .failureUrl("/auth/login?error") //после неуспешной аутентиф. перенаправить обратно с ключом
+                .and() // добавляем процесс разлогининивания
+//        logout - это когда из сессии удаляется пользователь и у пользователя ужадяются cookies
+                .logout()
+//        Нужно реализовать где-то (например в hello.html) кнопку Logout. Далее Spring сам сделает.
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/auth/login"); // ссылка на разлогинивание, автопереход после него
     }
     
     //Spring настраивает аутентификацию ПО УМОЛЧАНИЮ :
