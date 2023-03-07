@@ -7,7 +7,7 @@ import ru.alexsem.springcourse.firstsecurityapp.models.Person;
 import java.util.Collection;
 
 /**
- * Класс-обёртка на сущностью Person, который предоставляет детали(информацию)
+ * Класс-обёртка над сущностью Person, который предоставляет детали(информацию)
  * о пользователе
  */
 public class PersonDetails implements UserDetails {

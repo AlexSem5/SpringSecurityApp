@@ -20,12 +20,22 @@ public class PersonDetailsService implements UserDetailsService {
         this.peopleRepository = peopleRepository;
     }
     
+    
+    /**
+     * Ищем сущность в таблице БД по имени из формы.
+     * Возвращаем класс-обёртку над сущностью Person.
+     * Метод вызывается в методе authentication() класса AuthProviderImpl
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Person> person = peopleRepository.findByUsername(username);
         if (person.isEmpty()) {
             throw new UsernameNotFoundException("User not found!");
         }
+//        Извлекаем из Optional person и кладём в класс-обёртку над сущностью Person:
         return new PersonDetails(person.get());
     }
 }

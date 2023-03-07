@@ -22,30 +22,41 @@ public class AuthProviderImpl implements AuthenticationProvider {
     }
     
     /**
-     * Метод с первого урока (возвращает credentials).
-     * Здесь лежит логика аутентификации. Вызывается Spring
-     * Берём даннные из объекта authentication и ищем в таблице бд
+     * Метод с первого урока.
+     * Здесь лежит логика аутентификации пользователя. Вызывается Spring.
+     * Аутентификация в данном случае осуществляется через запрос к БД
+     *
+     * На вход подаём объект Authentication с данными Credentials (login, пароль).
+     *
      * Возвращает объект Authentication с принципалом, паролем и
      * списком прав (авторизаций): new UsernamePasswordAuthenticationToken(
      * personDetails, password, Collections.emptyList()), Данный объект будет
      * помещён в сессию и при каждом запросе пользователя он будет
      * доставаться из сессии.
      *
-     * @param authentication
-     * @return
+     * Каждый раз, когда пользователь будет делать запрос к нашему приложению, мы будем
+     * иметь доступ к его объекту Authentication с Principal внутри. Объект Authentication
+     * помещается в сессию. За загрузку объекта при каждм запросе http отвечает фильтр Spring Security.
+     *
+     * У сессии на сервере есть ID, который сравнивается с id в cookies
+     *
+     * @param authentication credentials (login, пароль)
+     * @return объект Authentication с принципалом, паролем и списком прав (авторизаций)
      * @throws AuthenticationException
      */
     
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+//        Извлекаем имя из формы:
         String username = authentication.getName();
-//        Данные из Бд:
+//        Ищем сущность в таблице бд по имени. Если не находим, то метод throws exception:
         UserDetails personDetails = personDetailsService.loadUserByUsername(username);
-//        Получаем пароль с формы:
+//        Извлекаем пароль из формы:
         String password = authentication.getCredentials().toString();
 //        Должны сравнить пароль c формы с тем, что есть в БД в personDetails (у нашего пользователя):
         if (!password.equals(personDetails.getPassword()))
             throw new BadCredentialsException("Incorrect password");
+//Возвращает объект Authentication с принципалом, паролем и списком прав (авторизаций):
         return new UsernamePasswordAuthenticationToken(personDetails, password,
                 Collections.emptyList());
     }

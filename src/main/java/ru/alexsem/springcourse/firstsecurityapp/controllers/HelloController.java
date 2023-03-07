@@ -14,8 +14,19 @@ public class HelloController {
         return "hello";
     }
     
-    //    Достаём объект (принципал), который был положен в сессию после успешной
-//    аутентификации
+    /**
+     * Достаём объект (принципал - сам пользователь), который был положен в сессию после успешной
+     * аутентификации в методе authentication() класса AuthProviderImpl
+     *
+     * Каждый раз, когда пользователь будет делать запрос к нашему приложению, мы будем
+     * иметь доступ к его объекту Authentication с Principal внутри. Объект Authentication
+     * помещается в сессию. За загрузку объекта при каждом http запросе отвечает фильтр Spring Security.
+     *
+     * У сессии на сервере есть ID, который сравнивается с id в cookies
+     *
+     *
+     * @return
+     */
     @GetMapping("/showUserInfo")
     public String showUserInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
