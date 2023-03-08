@@ -10,6 +10,13 @@ import ru.alexsem.springcourse.firstsecurityapp.repositories.PeopleRepository;
 @Service
 public class RegistrationService {
     private final PeopleRepository peopleRepository;
+    
+    //    Bean - объект, который будет заниматься шифрованием паролей.
+    /**
+     * Bean - объект, который будет заниматься шифрованием паролей.
+     * Задекларирован в классе SecurityConfig.
+     * BCryptPasswordEncoder() - используем алгоритм bcrypt
+     */
     private final PasswordEncoder passwordEncoder;
     
     @Autowired
@@ -20,7 +27,8 @@ public class RegistrationService {
     
     @Transactional
     public void register(Person person) {
-//        person.setPassword(passwordEncoder.encode(person.getPassword()));
+//        У человека будет храниться зашифрованный пароль:
+        person.setPassword(passwordEncoder.encode(person.getPassword()));
 //        person.setRole("ROLE_USER");
 //        Сохраняем человека в JPA репозитории
         peopleRepository.save(person);

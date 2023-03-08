@@ -33,6 +33,8 @@ public class AuthController {
     }
     
 //    Кладём в модель пустого человека
+//    Метод возвращает с сервера html-форму (Thymeleaf)
+//    В форме у нас добавлен CSRF-token
     @GetMapping("/registration")
     public String registrationPage(@ModelAttribute("person") Person person) {
         return "auth/registration";
