@@ -5,6 +5,20 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+/**
+ * Аннотацией @Entity помечаем класс, который связан с бд.
+ * Класс с @Entity должен иметь пустой конструктор и поле с аннотацией @Id
+ *
+ * Требования к Entity:
+ *
+ * Все классы должны иметь ID для простой идентификации наших объектов в БД и в Hibernate.
+ * Это поле класса соединяется с первичным ключём (primary key) таблицы БД.
+ * Все POJO – классы должны иметь конструктор по умолчанию (пустой).
+ * Все поля  – классов должны иметь модификатор доступа private,
+ * иметь набор getter-ов и setter-ов в стиле JavaBean.
+ *  классы не должны содержать бизнес-логику.
+ */
+
 @Entity
 @Table(name = "Person")
 public class Person {

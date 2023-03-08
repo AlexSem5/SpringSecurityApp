@@ -10,3 +10,7 @@ INSERT INTO person(username, year_of_birth, password) VALUES ('user2', 1970, 'pa
 
 TRUNCATE person;
 ALTER TABLE person ADD COLUMN role varchar(100) NOT NULL ;
+
+UPDATE person
+SET role = 'ROLE_ADMIN'
+WHERE id=6;

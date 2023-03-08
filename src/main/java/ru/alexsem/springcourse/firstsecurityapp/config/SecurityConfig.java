@@ -63,12 +63,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
 //                .csrf().disable() // временно отключаем csrf токен (защиту от межсайтовой подделки запросов)
                 .authorizeRequests() // начало авторизации -  предоставить разрешения для следующих url
-                //.antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/auth/login", "/auth/registration", "/error")
-                .permitAll() // на эти страниы проходят все
-                .anyRequest().authenticated() // на все остальные страницы мы не пускаем неаутентиф. пользователей
-//                .anyRequest()
-//                .hasAnyRole("USER", "ADMIN")
+                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/auth/login", "/auth/registration", "/error").permitAll() // на эти страниы проходят все
+//                .anyRequest().authenticated() // на все остальные страницы мы не пускаем неаутентиф. пользователей
+                .anyRequest().hasAnyRole("USER", "ADMIN") //доступ ко всем остальным страницам имеют эти роли
                 .and() //разделитель между блоками
                 .formLogin()
                 .loginPage("/auth/login") //хотим свою страницу аутентификации

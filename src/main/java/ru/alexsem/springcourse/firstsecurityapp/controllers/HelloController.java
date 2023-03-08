@@ -34,4 +34,10 @@ public class HelloController {
         System.out.println(personDetails.getPerson());
         return "hello";
     }
+    
+    // пример страницы, на которую может заходить только админ
+    @GetMapping ("/admin")
+    public String adminPage() {
+        return "admin";
+    }
 }

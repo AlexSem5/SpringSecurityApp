@@ -29,7 +29,8 @@ public class RegistrationService {
     public void register(Person person) {
 //        У человека будет храниться зашифрованный пароль:
         person.setPassword(passwordEncoder.encode(person.getPassword()));
-//        person.setRole("ROLE_USER");
+//        При регистрации у каждого пользователя будет роль:
+        person.setRole("ROLE_USER");
 //        Сохраняем человека в JPA репозитории
         peopleRepository.save(person);
     }

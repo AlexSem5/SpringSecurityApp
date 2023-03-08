@@ -1,10 +1,12 @@
 package ru.alexsem.springcourse.firstsecurityapp.security;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.alexsem.springcourse.firstsecurityapp.models.Person;
 
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Класс-обёртка над сущностью Person, который предоставляет детали(информацию)
@@ -24,7 +26,9 @@ public class PersonDetails implements UserDetails {
     //    Коллекция прав у пользователя
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+//        Роли или Authorities (ниже только роли). В Spring Security Authorities и роли - одно и то же
+//        Здесь будут находиться роли: ROLE_ADMIN или ROLE_USER
+        return Collections.singletonList(new SimpleGrantedAuthority(person.getRole()));
     }
     
     @Override
